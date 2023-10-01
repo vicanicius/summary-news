@@ -22,8 +22,7 @@ class ApiClientServiceProvider extends ServiceProvider implements DeferrableProv
             fn () => new ApiClient([
                 'base_uri' => config('services.newsApi.url'),
                 RequestOptions::HEADERS => [
-                    'X-Api-Key' => config('services.newsApi.token'),
-                    'Content-Type' => 'application/json',
+                    'X-Api-Key' => config('services.newsApi.key'),
                 ],
             ])
         );
@@ -36,6 +35,6 @@ class ApiClientServiceProvider extends ServiceProvider implements DeferrableProv
      */
     public function provides()
     {
-        return [FpayClientContract::class];
+        return [ApiClientContract::class];
     }
 }

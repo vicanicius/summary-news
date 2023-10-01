@@ -21,7 +21,6 @@ class NewsApiService implements NewsApiServiceContract
      */
     public function getAllArticlesAbout(string $query): ResponseInterface
     {
-        $query = $query;
         return $this->client->request(
             'GET',
             config('news-api.v2.everything.get').$query,
