@@ -8,6 +8,7 @@ use App\Repositories\Contracts\TopHeadlinesRepositoryContract;
 use App\Services\NewsApi\Contracts\NewsApiServiceContract;
 use App\Services\NewsApi\Contracts\NewsServiceContract;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 
@@ -112,5 +113,19 @@ class NewsService implements NewsServiceContract
             'message' => $data['message'] ?? 'No service response',
             'data' => $data['data'] ?? $data ?? [],
         ];
+    }
+
+    public function getAllArticlesAboutInElastic(array $dataRequest): array
+    {
+        $topScore = $this->newsRepository->searchTopScore($dataRequest['search']);
+
+        return $topScore->toArray();
+    }
+
+    public function getTopHeadlinesInTheCountryInElastic(array $dataRequest): array
+    {
+        $topScore = $this->topHeadlinesRepository->searchTopScore($dataRequest['search']);
+
+        return $topScore->toArray();
     }
 }

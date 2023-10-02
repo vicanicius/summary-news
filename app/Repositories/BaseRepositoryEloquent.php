@@ -20,4 +20,9 @@ abstract class BaseRepositoryEloquent implements BaseRepositoryContract
     {
         return $this->model::updateOrCreate($find, $value);
     }
+
+    public function searchTopScore(string $value): Collection
+    {
+        return $this->model::search("{$value}")->orderBy('_score', 'desc')->get();
+    }
 }
