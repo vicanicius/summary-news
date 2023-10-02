@@ -17,9 +17,9 @@ interface NewsApiServiceContract
 
     /**
      * @param  string  $country
-     * @return ResponseInterface
+     * @return array
      *
      * @throws GuzzleException
      */
-    public function getTopHeadlinesInTheCountry(string $country): ResponseInterface;
+    public function getTopHeadlinesInTheCountry(string $country): array;
 }

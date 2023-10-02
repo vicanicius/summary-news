@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('top_headlines', function (Blueprint $table) {
             $table->id();
+            $table->string('country');
             $table->text('sourceId')->nullable();
             $table->text('sourceName')->nullable();
             $table->text('author')->nullable();
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('top_headlines');
     }
 };

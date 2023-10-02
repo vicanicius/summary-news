@@ -21,11 +21,24 @@ class NewsApiService implements NewsApiServiceContract
      */
     public function getAllArticlesAbout(string $query): array
     {
-        $totalPerPage = 100;
+       return $this->getResults(config('news-api.v2.everything.get'), $query, 100);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTopHeadlinesInTheCountry(string $country): array
+    {
+       return $this->getResults(config('news-api.v2.top-headlines.get'), $country, 20);
+    }
+
+    private function getResults(string $uri, string $query, int $perPage)
+    {
+        $totalPerPage = $perPage;
 
         $currentPage = 1;
 
-        $response = $this->client->request('GET', config('news-api.v2.everything.get').$query);
+        $response = $this->client->request('GET', $uri . $query);
 
         $results = [];
 
@@ -35,7 +48,7 @@ class NewsApiService implements NewsApiServiceContract
 
         do {
             $queryWithPage = $query . '&page=' . $currentPage;
-            $response = $this->client->request('GET', config('news-api.v2.everything.get') . $queryWithPage);
+            $response = $this->client->request('GET', $uri . $queryWithPage);
 
             if ($response->getStatusCode() == 200) {
                 $data = json_decode($response->getBody(), true);
@@ -49,24 +62,5 @@ class NewsApiService implements NewsApiServiceContract
         } while ($currentPage <= $totalPages);
 
         return $results;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTopHeadlinesInTheCountry(string $country): ResponseInterface
-    {
-        return $this->client->request(
-            'GET',
-            config('news-api.v2.top-headlines.get').$country,
-        );
-    }
-
-    private function getProductsUri(int $page): string
-    {
-        $uri = config('news-api.v2.everything.get');
-        $uri .= '?page=' . $page;
-
-        return $uri;
     }
 }

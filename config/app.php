@@ -172,6 +172,7 @@ return [
         App\Providers\NewsApiServiceProvider::class,
         App\Providers\NewsServiceProvider::class,
         App\Providers\NewsRepositoryProvider::class,
+        App\Providers\TopHeadlinesRepositoryProvider::class,
     ])->toArray(),
 
     /*
