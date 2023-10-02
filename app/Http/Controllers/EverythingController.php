@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class GetTopHeadlinesController extends Controller
+class EverythingController extends Controller
 {
     public function __construct(private NewsServiceContract $service)
     {
@@ -22,9 +22,9 @@ class GetTopHeadlinesController extends Controller
         $response = ResponseBuilder::init();
 
         try {
-            $topHeadlines = $this->service->getTopHeadlinesInTheCountry($request->all());
+            $everything = $this->service->getAllArticlesAbout($request->all());
 
-            return $response->data($topHeadlines)
+            return $response->data($everything)
                 ->status(Response::HTTP_OK)
                 ->build();
         } catch (Exception $exception) {

@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class GetEverythingController extends Controller
+class TopHeadlinesController extends Controller
 {
     public function __construct(private NewsServiceContract $service)
     {
@@ -22,13 +22,12 @@ class GetEverythingController extends Controller
         $response = ResponseBuilder::init();
 
         try {
-            $everything = $this->service->getAllArticlesAbout($request->all());
+            $topHeadlines = $this->service->getTopHeadlinesInTheCountry($request->all());
 
-            return $response->data($everything)
+            return $response->data($topHeadlines)
                 ->status(Response::HTTP_OK)
                 ->build();
         } catch (Exception $exception) {
-            dd($exception->getMessage());
             return $response->message('Unexpected error in '.self::class)
                 ->status(Response::HTTP_INTERNAL_SERVER_ERROR)
                 ->build();
