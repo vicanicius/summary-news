@@ -9,11 +9,11 @@ interface NewsApiServiceContract
 {
     /**
      * @param  string  $query
-     * @return ResponseInterface
+     * @return array
      *
      * @throws GuzzleException
      */
-    public function getAllArticlesAbout(string $query): ResponseInterface;
+    public function getAllArticlesAbout(string $query): array;
 
     /**
      * @param  string  $country

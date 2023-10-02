@@ -2,6 +2,7 @@
 
 namespace App\Services\NewsApi;
 
+use App\Models\News;
 use App\Services\NewsApi\Contracts\NewsApiServiceContract;
 use App\Services\NewsApi\Contracts\NewsServiceContract;
 use GuzzleHttp\Exception\RequestException;
@@ -28,7 +29,23 @@ class NewsService implements NewsServiceContract
 
             $response = $this->service->getAllArticlesAbout($queryString);
 
-            return $this->formatResponse($response);
+            //$responseJson = json_decode($response->getBody()->getContents(), true);
+
+            foreach ($response as $articles) {
+                News::create([
+                    'sourceId' => $articles['source']['id'],
+                    'sourceName' => $articles['source']['name'],
+                    'author' => $articles['author'],
+                    'title' => $articles['title'],
+                    'description' => $articles['author'],
+                    'url' => $articles['url'],
+                    'urlToImage' => $articles['urlToImage'],
+                    'publishedAt' => $articles['publishedAt'],
+                    'content' => $articles['content'],
+                ]);
+            }
+
+            return [];
         } catch (RequestException $exception) {
             return $this->formatExceptionResponse($exception->getResponse());
         }
