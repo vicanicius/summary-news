@@ -3,6 +3,7 @@
 namespace App\Services\NewsApi;
 
 use App\Models\News;
+use App\Repositories\Contracts\NewsRepositoryContract;
 use App\Services\NewsApi\Contracts\NewsApiServiceContract;
 use App\Services\NewsApi\Contracts\NewsServiceContract;
 use GuzzleHttp\Exception\RequestException;
@@ -13,9 +14,12 @@ class NewsService implements NewsServiceContract
 {
     /**
      * @param  NewsApiServiceContract  $service
+     * @param  NewsRepositoryContract  $newsRepository
      */
-    public function __construct(private NewsApiServiceContract $service)
-    {
+    public function __construct(
+        private NewsApiServiceContract $service,
+        private NewsRepositoryContract $newsRepository
+    ) {
         //
     }
 
@@ -32,17 +36,22 @@ class NewsService implements NewsServiceContract
             //$responseJson = json_decode($response->getBody()->getContents(), true);
 
             foreach ($response as $articles) {
-                News::create([
-                    'sourceId' => $articles['source']['id'],
-                    'sourceName' => $articles['source']['name'],
-                    'author' => $articles['author'],
-                    'title' => $articles['title'],
-                    'description' => $articles['author'],
-                    'url' => $articles['url'],
-                    'urlToImage' => $articles['urlToImage'],
-                    'publishedAt' => $articles['publishedAt'],
-                    'content' => $articles['content'],
-                ]);
+                $this->newsRepository->updateOrCreate(
+                    [
+                        'url' => $articles['url']
+                    ],
+                    [
+                        'sourceId' => $articles['source']['id'],
+                        'sourceName' => $articles['source']['name'],
+                        'author' => $articles['author'],
+                        'title' => $articles['title'],
+                        'description' => $articles['author'],
+                        'url' => $articles['url'],
+                        'urlToImage' => $articles['urlToImage'],
+                        'publishedAt' => $articles['publishedAt'],
+                        'content' => $articles['content'],
+                    ]
+                );
             }
 
             return [];

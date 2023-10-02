@@ -171,6 +171,7 @@ return [
         App\Providers\ApiClientServiceProvider::class,
         App\Providers\NewsApiServiceProvider::class,
         App\Providers\NewsServiceProvider::class,
+        App\Providers\NewsRepositoryProvider::class,
     ])->toArray(),
 
     /*
