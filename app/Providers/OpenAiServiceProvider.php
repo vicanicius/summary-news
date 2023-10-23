@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Services\NewsApi\Contracts\NewsServiceContract;
-use App\Services\NewsApi\NewsService;
+use App\Services\OpenAi\OpenAiService;
+use App\Services\OpenAi\Contracts\OpenAiServiceContract;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class NewsServiceProvider extends ServiceProvider implements DeferrableProvider
+class OpenAiServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -16,7 +16,7 @@ class NewsServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function boot()
     {
-        $this->app->bind(NewsServiceContract::class, NewsService::class);
+        $this->app->bind(OpenAiServiceContract::class, OpenAiService::class);
     }
 
     /**
@@ -26,6 +26,6 @@ class NewsServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function provides()
     {
-        return [NewsServiceContract::class];
+        return [OpenAiServiceContract::class];
     }
 }

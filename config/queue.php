@@ -71,6 +71,20 @@ return [
             'after_commit' => false,
         ],
 
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'host' => env('RABBITMQ_HOST', 'rabbit-microservice'),
+            'port' => env('RABBITMQ_PORT', 5672),
+            'vhost' => env('RABBITMQ_VHOST', '/'),
+            'user' => env('RABBITMQ_USERNAME', 'atr_atlas'),
+            'password' => env('RABBITMQ_PASSWORD', '@atrAtlas'),
+            'queue' => env('RABBITMQ_QUEUE', 'default'),
+            'options' => [
+                'ssl_options' => [],
+                'exchange' => 'amq.direct',
+            ],
+        ],
+
     ],
 
     /*

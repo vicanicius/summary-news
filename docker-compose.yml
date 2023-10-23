@@ -4,27 +4,24 @@
 version: '2'
 
 services:
-  mariadb:
-    container_name: bd-microservice
-    image: docker.io/bitnami/mariadb:10.6
-    environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=bn_myapp
-      - MARIADB_DATABASE=bitnami_myapp
-    ports:
-      - '3307:3306'
-  ms:
-    container_name: microservice
+  summary-news:
+    container_name: summary-news
     image: docker.io/bitnami/laravel:10
     ports:
-      - '8060:8000'
+      - '8090:8000'
     environment:
-      - DB_HOST=mariadb
-      - DB_PORT=3306
-      - DB_USERNAME=bn_myapp
-      - DB_DATABASE=bitnami_myapp
+      - REDIS_HOST=redis-summary-news
     volumes:
-      - './microservice-app:/app'
-    depends_on:
-      - mariadb
+      - './summary-news:/app'
+    networks:
+      - minha-rede-local
+  redis-summary-news:
+    container_name: redis-summary-news
+    image: redis:latest
+    ports:
+      - '6378:6379'
+    networks:
+      - minha-rede-local
+networks:
+  minha-rede-local:
+    external: true

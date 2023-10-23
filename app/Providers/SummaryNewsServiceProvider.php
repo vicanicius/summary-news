@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
-use App\Services\NewsApi\Contracts\NewsApiServiceContract;
-use App\Services\NewsApi\NewsApiService;
+use App\Services\NewsApi\Contracts\NewsServiceContract;
+use App\Services\Contracts\SummaryNewsServiceContract;
+use App\Services\NewsApi\NewsService;
+use App\Services\SummaryNewsService;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class NewsApiServiceProvider extends ServiceProvider implements DeferrableProvider
+class SummaryNewsServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -16,7 +18,7 @@ class NewsApiServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     public function boot()
     {
-        $this->app->bind(NewsApiServiceContract::class, NewsApiService::class);
+        $this->app->bind(SummaryNewsServiceContract::class, SummaryNewsService::class);
     }
 
     /**
@@ -26,6 +28,6 @@ class NewsApiServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     public function provides()
     {
-        return [NewsApiServiceContract::class];
+        return [SummaryNewsServiceContract::class];
     }
 }

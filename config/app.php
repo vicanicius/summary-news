@@ -167,12 +167,11 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ApiClientServiceProvider::class,
-        App\Providers\NewsApiServiceProvider::class,
-        App\Providers\NewsServiceProvider::class,
-        App\Providers\NewsRepositoryProvider::class,
-        App\Providers\TopHeadlinesRepositoryProvider::class,
+        App\Providers\OpenAiServiceProvider::class,
+        App\Providers\SummaryNewsServiceProvider::class,
     ])->toArray(),
 
     /*
