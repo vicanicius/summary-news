@@ -1,10 +1,8 @@
 ## About App
 
-App dede estudo sobre microserviços, integrando a https://newsapi.org/  
+Microserviço para resumir determinado texto de acordo com o que recebe na fila do rabbitMq do https://github.com/vicanicius/microservice-app
 
 ## Primeiros passos
 
 * docker-compose up -d
-* entrar no container e rodar php artisan migrate
-* collection do postman anexada ao projeto
-
+* entrar no container e rodar php artisan schedule:run
