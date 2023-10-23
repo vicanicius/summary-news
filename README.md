@@ -5,4 +5,4 @@ Microserviço para resumir determinado texto de acordo com o que recebe na fila 
 ## Primeiros passos
 
 * docker-compose up -d
-* entrar no container e rodar php artisan schedule:run
+* copiar o .env.example para o .env
